@@ -1,16 +1,14 @@
 // Frequency Counter
 /* 
+    This pattern uses objects or sets to collect values/frequencies 
+    of values. This can often avoid the need for nested loops or 
+    O(N^2) operations with arrays / strings.
+
+    Example:
     Given two strings, write a function to determine if 
     the second string is an anagram of the first. An anagram 
     is a word, phrase, or name formed by rearranging the letters 
     of another, such as cinema, formed from iceman.
-
-    Examples:
-    validAnagram(" ", " ") // true
-    validAnagram("aaz", "zza") // false
-    validAnagram("anagram", "naragam") // true
-    validAnagram("rat", "cat") // false
-    validAnagram("texttwisttime", "timetwisttext") // true
 
     function validAnagram(first, second) {
       if (first.length !== second.length) {
@@ -37,35 +35,14 @@
 
       return true;
     }
+
+    validAnagram(" ", " ") // true
+    validAnagram("aaz", "zza") // false
+    validAnagram("anagram", "naragam") // true
+    validAnagram("rat", "cat") // false
+    validAnagram("texttwisttime", "timetwisttext") // true
 */
 
-// first try
-// const validAnagram = (firstWord: string, secondWord: string) => {
-//   if (firstWord.length !== secondWord.length) {
-//     return false;
-//   }
-//
-//   const firstCounter = {} as any;
-//   const secondCounter = {} as any;
-//
-//   for (let char of firstWord) {
-//     firstCounter[char] = (firstCounter[char] || 0) + 1;
-//   }
-//
-//   for (let char of secondWord) {
-//     secondCounter[char] = (secondCounter[char] || 0) + 1;
-//   }
-//
-//   for (let key of Object.keys(firstCounter)) {
-//     if (firstCounter[key] !== secondCounter[key]) {
-//       return false;
-//     }
-//   }
-//
-//   return true;
-// };
-
-// refactored
 const validAnagram = (firstWord: string, secondWord: string) => {
   if (firstWord.length !== secondWord.length) {
     return false;

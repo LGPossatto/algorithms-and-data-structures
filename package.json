@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "w": "tsc -w",
-    "start": "nodemon ./dist/problem-solving/frequency-counter"
+    "start": "nodemon ./dist/problem-solving/multiple-pointers"
   },
   "keywords": [],
   "author": "",
