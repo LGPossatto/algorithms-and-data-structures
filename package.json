@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "watch": "tsc -w",
+    "w": "tsc -w",
     "start": "nodemon ./dist/problem-solving/frequency-counter"
   },
   "keywords": [],
