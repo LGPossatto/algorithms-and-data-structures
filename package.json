@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "w": "tsc -w",
-    "start": "nodemon ./dist/problem-solving/multiple-pointers/ex-1.js"
+    "start": "nodemon ./dist/problem-solving/sliding-window/ex-1.js"
   },
   "keywords": [],
   "author": "",
