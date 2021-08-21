@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "w": "tsc -w",
-    "start": "nodemon ./dist/problem-solving/sliding-window/ex-3.js"
+    "start": "nodemon ./dist/problem-solving/recursion/ex-4.js"
   },
   "keywords": [],
   "author": "",
