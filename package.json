@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "w": "tsc -w",
-    "start": "nodemon ./dist/problem-solving/recursion/ex-9.js"
+    "start": "nodemon ./dist/sort-algorithms/selection-sort/selection-sort.js"
   },
   "keywords": [],
   "author": "",
