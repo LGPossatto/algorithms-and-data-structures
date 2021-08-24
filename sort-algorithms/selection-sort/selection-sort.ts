@@ -4,6 +4,9 @@
     Worst case: Big O(n^2);
     Compared to Bubble Sort, it does a lot less writing to memory.
 
+    Space Complecity:
+    Big O(1).
+    
     Similar to bubble sort, but instead of first placing 
     large values into sorted position, it places small values 
     into sorted position.

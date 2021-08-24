@@ -5,6 +5,9 @@
     Better with nearly sorted arrays, works best with 
     constant insertion of data.
 
+    Space Complecity:
+    Big O(1).
+
     Builds up the sort by gradually creating a larger left 
     half which is always sorted
 

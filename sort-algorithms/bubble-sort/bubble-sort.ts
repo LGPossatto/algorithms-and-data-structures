@@ -4,6 +4,9 @@
     Worst case: Big O(n^2);
     If the array is nearly sorted: Big O(n);
 
+    Space Complecity:
+    Big O(1).
+    
     A sorting algorithm where the largest 
     values bubble up to the top!
 
