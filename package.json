@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "w": "tsc -w",
-    "start": "nodemon ./dist/sort-algorithms/merge-sort/merge-sort.js"
+    "start": "nodemon ./dist/sort-algorithms/quick-sort/pivot-helper.js"
   },
   "keywords": [],
   "author": "",
