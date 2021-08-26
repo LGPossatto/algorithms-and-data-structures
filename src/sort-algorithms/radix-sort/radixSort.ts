@@ -38,7 +38,7 @@
     }
 */
 
-import { getDigit, mostDigits } from "./radix-helpers";
+import { getDigit, mostDigits } from "./radixHelpers";
 
 const radixSort = (arr: number[]): number[] => {
   const largestNum = mostDigits(arr);

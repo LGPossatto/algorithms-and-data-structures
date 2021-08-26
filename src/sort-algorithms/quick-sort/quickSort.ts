@@ -34,7 +34,7 @@
     less than 2 elements.
 */
 
-import { pivotHelper } from "./pivot-helper";
+import { pivotHelper } from "./pivotHelper";
 
 const quickSort = (
   arr: number[],

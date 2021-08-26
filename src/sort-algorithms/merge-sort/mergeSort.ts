@@ -35,7 +35,7 @@
     merged (and sorted!) array.
 */
 
-import { mergeArrays } from "./merge-arrays";
+import { mergeArrays } from "./mergeArrays";
 
 const mergeSort = (arr: number[]): number[] => {
   if (arr.length <= 1) return arr;

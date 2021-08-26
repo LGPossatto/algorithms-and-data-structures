@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "w": "tsc -w",
-    "start": "nodemon ./dist/sort-algorithms/radix-sort/radix-sort.js"
+    "start": "nodemon ./dist/data-structures/singly-linked-list/singlyLinkedList.js"
   },
   "keywords": [],
   "author": "",
