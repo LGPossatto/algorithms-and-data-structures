@@ -1,7 +1,7 @@
 // Merge Sort
 /* 
     Time Complexity:
-    Worst case: Big O(n * log n);
+    Worst case: Big O(n * log n).
 
     Space Complecity:
     Big O(n).
@@ -9,7 +9,7 @@
     It's a combination of two things - merging and sorting! 
     Exploits the fact that arrays of 0 or 1 element are always 
     sorted. Works by decomposing an array into smaller arrays of 0 or 1 
-    elements, then building up a newly sorted array
+    elements, then building up a newly sorted array.
 
               [ 8, 3, 5, 4, 7, 6, 1, 2 ]
                          split
@@ -32,15 +32,7 @@
     other sorted arrays until you are back at the full length of 
     the array;
     - Once the array has been merged back together, return the 
-    merged (and sorted!) array;
-
-    function mergeSort(arr){
-        if(arr.length <= 1) return arr;
-        let mid = Math.floor(arr.length/2);
-        let left = mergeSort(arr.slice(0,mid));
-        let right = mergeSort(arr.slice(mid));
-        return merge(left, right);
-    }
+    merged (and sorted!) array.
 */
 
 import { mergeArrays } from "./merge-arrays";

@@ -2,7 +2,7 @@
 /* 
     Time Complexity:
     Worst case: Big O(n^2);
-    If the array is nearly sorted: Big O(n);
+    If the array is nearly sorted: Big O(n).
 
     Space Complecity:
     Big O(1).

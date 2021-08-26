@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "w": "tsc -w",
-    "start": "nodemon ./dist/sort-algorithms/quick-sort/pivot-helper.js"
+    "start": "nodemon ./dist/sort-algorithms/radix-sort/radix-sort.js"
   },
   "keywords": [],
   "author": "",
