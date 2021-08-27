@@ -2,7 +2,7 @@
 /* 
     Time Complexity:
     Insertion: Big O(1);
-    Removal: Big O(1) or Big O(N) if remove is at the end os the list;
+    Removal: Big O(1) or Big O(N) if remove at the end os the list;
     Searching: Big O(N);
     Access: Big O(N).
 
@@ -60,22 +60,14 @@
         Removing a node from the end of the Linked List!
 
         Pseudocode:
-        - If there are no nodes in the list, return undefined;
-        - Loop through the list until you reach the tail;
-        - Set the next property of the 2nd to last node to be null;
-        - Set the tail to be the 2nd to last node;
+        - If there are no nodes in the list, return null;
+        - If the length is 1, set the head and tail to be null;
+        - Else:
+            - Loop through the list until you reach the tail;
+            - Set the next property of the 2nd to last node to 
+            be null;
+            - Set the tail to be the 2nd to last node;
         - Decrement the length of the list by 1;
-        - Return the value of the node removed.
-
-    Shifting:
-        Removing a new node from the beginning of the Linked List!
-
-        Pseudocode:
-        - If there are no nodes, return undefined;
-        - Store the current head property in a variable;
-        - Set the head property to be the current head's next 
-        property;
-        - Decrement the length by 1;
         - Return the value of the node removed.
 
     Unshifting:
@@ -92,6 +84,20 @@
         node;
         - Increment the length of the list by 1;
         - Return the linked list.
+
+    Shifting:
+        Removing a new node from the beginning of the Linked List!
+
+        Pseudocode:
+        - If there are no nodes, return null;
+        - Store the current head property in a variable;
+        - If the length is 1, set the head and tail to be null;
+        - Else: 
+            -set the head property to be the current head's next 
+            property;
+            - Remove the next property of the removed node; 
+        - Decrement the length by 1;
+        - Return the value of the node removed.
 
     Insert:
         Adding a node to the Linked List at a specific position!
@@ -116,13 +122,14 @@
 
         Pseudocode:
         - If the index is less than zero or greater than the 
-        length, return undefined;
+        length, return null;
         - If the index is the same as the length-1, pop;
         - If the index is 0, shift;
         - Otherwise, using the get method, access the node at 
         the index - 1;
         - Set the next property on that node to be the next of 
         the next node;
+        - Remove the next property of the removed node; 
         - Decrement the length;
         - Return the value of the node removed.
 
@@ -133,7 +140,8 @@
         - Swap the head and tail;
         - Create a variable called next;
         - Create a variable called prev;
-        - Create a variable called node and initialize it to the head property;
+        - Create a variable called node and initialize it to 
+        the head property;
         - Loop through the list;
         - Set next to be the next property on whatever node is;
         - Set the next property on the node to be whatever prev is;
@@ -142,19 +150,19 @@
         - Once you have finished looping, return the list.
 */
 
-class LinkedNode {
-  public val: number;
-  public next: LinkedNode | null;
+class SinglyNode<T> {
+  public val: T;
+  public next: SinglyNode<T> | null;
 
-  constructor(val: any) {
+  constructor(val: T) {
     this.val = val;
     this.next = null;
   }
 }
 
-class SinglyLinkedList {
-  private head: LinkedNode | null;
-  private tail: LinkedNode | null;
+class SinglyLinkedList<T> {
+  private head: SinglyNode<T> | null;
+  private tail: SinglyNode<T> | null;
   private length: number;
 
   constructor() {
@@ -163,7 +171,7 @@ class SinglyLinkedList {
     this.length = 0;
   }
 
-  get = (index: number) => {
+  get = (index: number): SinglyNode<T> | null => {
     if (index < 0 || index >= this.length) return null;
 
     let selectedNode = this.head;
@@ -174,7 +182,7 @@ class SinglyLinkedList {
     return selectedNode;
   };
 
-  set = (index: number, val: any) => {
+  set = (index: number, val: T): boolean => {
     const selectedNode = this.get(index);
 
     if (!selectedNode) {
@@ -185,8 +193,8 @@ class SinglyLinkedList {
     return true;
   };
 
-  push = (val: any): SinglyLinkedList => {
-    const newNode = new LinkedNode(val);
+  push = (val: T): SinglyLinkedList<T> => {
+    const newNode = new SinglyNode<T>(val);
 
     if (!this.head) {
       this.head = newNode;
@@ -200,30 +208,31 @@ class SinglyLinkedList {
     return this;
   };
 
-  pop = () => {
-    if (!this.head) return undefined;
+  pop = (): SinglyNode<T> | null => {
+    if (!this.head) return null;
 
     let newTail = this.head;
     let currentNode = this.head;
-    while (currentNode!.next) {
-      newTail = currentNode;
-      currentNode = currentNode!.next;
-    }
 
-    this.tail = newTail;
-    this.tail!.next = null;
-    this.length--;
-
-    if (this.length === 0) {
+    if (this.length === 1) {
       this.head = null;
       this.tail = null;
+    } else {
+      while (currentNode!.next) {
+        newTail = currentNode;
+        currentNode = currentNode!.next;
+      }
+
+      this.tail = newTail;
+      this.tail!.next = null;
     }
 
+    this.length--;
     return currentNode;
   };
 
-  unshift = (val: any) => {
-    const newNode = new LinkedNode(val);
+  unshift = (val: T): SinglyLinkedList<T> => {
+    const newNode = new SinglyNode<T>(val);
 
     if (!this.head) {
       this.head = newNode;
@@ -237,27 +246,28 @@ class SinglyLinkedList {
     return this;
   };
 
-  shift = () => {
-    if (!this.head) return undefined;
+  shift = (): SinglyNode<T> | null => {
+    if (!this.head) return null;
 
-    let removedNode = this.head;
-    this.head = this.head!.next;
-    this.length--;
-
-    if (this.length === 0) {
+    const removedNode = this.head;
+    if (this.length === 1) {
       this.head = null;
       this.tail = null;
+    } else {
+      this.head = this.head!.next;
+      removedNode!.next = null;
     }
 
+    this.length--;
     return removedNode;
   };
 
-  insert = (index: number, val: any) => {
+  insert = (index: number, val: T): boolean => {
     if (index < 0 || index > this.length) return false;
     if (index === 0) return this.unshift(val) ? true : false;
     if (index === this.length) return this.push(val) ? true : false;
 
-    const newNode = new LinkedNode(val);
+    const newNode = new SinglyNode<T>(val);
     const prevNode = this.get(index - 1);
     newNode.next = prevNode!.next;
     prevNode!.next = newNode;
@@ -266,7 +276,7 @@ class SinglyLinkedList {
     return true;
   };
 
-  remove = (index: number) => {
+  remove = (index: number): SinglyNode<T> | null => {
     if (index < 0 || index >= this.length) return null;
     if (index === 0) return this.shift();
     if (index === this.length - 1) return this.pop();
@@ -274,12 +284,13 @@ class SinglyLinkedList {
     const prevNode = this.get(index - 1);
     const removedNode = prevNode!.next;
     prevNode!.next = prevNode!.next!.next;
+    removedNode!.next = null;
 
     this.length--;
     return removedNode;
   };
 
-  reverse = () => {
+  reverse = (): SinglyLinkedList<T> => {
     this.tail = this.head;
 
     let prevNode = null;
@@ -300,16 +311,18 @@ class SinglyLinkedList {
   };
 }
 
-const linkedList = new SinglyLinkedList();
-linkedList.push(1);
+const singlyList = new SinglyLinkedList<number>();
+singlyList.push(1);
+singlyList.push(2);
+singlyList.push(3);
 
-//console.log(linkedList);
-//console.log(linkedList.push(4));
-//console.log(linkedList.pop());
-//console.log(linkedList.unshift(0));
-//console.log(linkedList.shift());
-//console.log(linkedList.get(2));
-//console.log(linkedList.set(0, 5));
-//console.log(linkedList.insert(1, 6));
-//console.log(linkedList.remove(1));
-//console.log(linkedList.reverse());
+//console.log(singlyList.get(2));
+//console.log(singlyList.set(0, 5));
+//console.log(singlyList.push(4));
+//console.log(singlyList.pop());
+//console.log(singlyList.unshift(0));
+//console.log(singlyList.shift());
+//console.log(singlyList.insert(1, 6));
+//console.log(singlyList.remove(1));
+//console.log(singlyList.reverse());
+console.log(singlyList);
