@@ -2,7 +2,7 @@
 /* 
     Time Complexity:
     Insertion: Big O(1);
-    Removal: Big O(1) or Big O(N) if...;
+    Removal: Big O(1) or Big O(N) if remove is at the end os the list;
     Searching: Big O(N);
     Access: Big O(N).
 
@@ -21,6 +21,27 @@
     - Random access is not allowed.
 
     METHODS =>
+    Get:
+        Retrieving a node by it's position in the Linked List!
+
+        Pseudocode:
+        - This function should accept an index;
+        - If the index is less than zero or greater than or equal 
+        to the length of the list, return null;
+        - Loop through the list until you reach the index and 
+        return the node at that specific index.
+
+    Set:
+        Changing the value of a node based on it's position in 
+        the Linked List!
+
+        Pseudocode:
+        - This function should accept a value and an index;
+        - Use your get function to find the specific node;
+        - If the node is not found, return false;
+        - If the node is found, set the value of that node to be 
+        the value passed to the function and return true.
+
     Pushing:
         Adding a new node to the end of the Linked List!
 
@@ -71,27 +92,6 @@
         node;
         - Increment the length of the list by 1;
         - Return the linked list.
-
-    Get:
-        Retrieving a node by it's position in the Linked List!
-
-        Pseudocode:
-        - This function should accept an index;
-        - If the index is less than zero or greater than or equal 
-        to the length of the list, return null;
-        - Loop through the list until you reach the index and 
-        return the node at that specific index.
-
-    Set:
-        Changing the value of a node based on it's position in 
-        the Linked List!
-
-        Pseudocode:
-        - This function should accept a value and an index;
-        - Use your get function to find the specific node;
-        - If the node is not found, return false;
-        - If the node is found, set the value of that node to be 
-        the value passed to the function and return true.
 
     Insert:
         Adding a node to the Linked List at a specific position!
@@ -163,6 +163,28 @@ class SinglyLinkedList {
     this.length = 0;
   }
 
+  get = (index: number) => {
+    if (index < 0 || index >= this.length) return null;
+
+    let selectedNode = this.head;
+    for (let i = 0; i < index; i++) {
+      selectedNode = selectedNode!.next;
+    }
+
+    return selectedNode;
+  };
+
+  set = (index: number, val: any) => {
+    const selectedNode = this.get(index);
+
+    if (!selectedNode) {
+      return false;
+    }
+
+    selectedNode.val = val;
+    return true;
+  };
+
   push = (val: any): SinglyLinkedList => {
     const newNode = new LinkedNode(val);
 
@@ -230,40 +252,64 @@ class SinglyLinkedList {
     return removedNode;
   };
 
-  get = (index: number) => {
-    if (index < 0 || index >= this.length) return null;
+  insert = (index: number, val: any) => {
+    if (index < 0 || index > this.length) return false;
+    if (index === 0) return this.unshift(val) ? true : false;
+    if (index === this.length) return this.push(val) ? true : false;
 
-    let selectedNode = this.head;
-    for (let i = 0; i < index; i++) {
-      selectedNode = selectedNode!.next;
-    }
+    const newNode = new LinkedNode(val);
+    const prevNode = this.get(index - 1);
+    newNode.next = prevNode!.next;
+    prevNode!.next = newNode;
 
-    return selectedNode;
+    this.length++;
+    return true;
   };
 
-  set = (index: number, val: any) => {
-    const selectedNode = this.get(index);
+  remove = (index: number) => {
+    if (index < 0 || index >= this.length) return null;
+    if (index === 0) return this.shift();
+    if (index === this.length - 1) return this.pop();
 
-    if (!selectedNode) {
-      return false;
+    const prevNode = this.get(index - 1);
+    const removedNode = prevNode!.next;
+    prevNode!.next = prevNode!.next!.next;
+
+    this.length--;
+    return removedNode;
+  };
+
+  reverse = () => {
+    this.tail = this.head;
+
+    let prevNode = null;
+    let currentNode = this.head;
+    let nextNode = null;
+
+    while (currentNode) {
+      nextNode = currentNode!.next;
+      currentNode!.next = prevNode;
+
+      prevNode = currentNode;
+      currentNode = nextNode;
     }
 
-    selectedNode.val = val;
-    return true;
+    this.head = prevNode;
+
+    return this;
   };
 }
 
 const linkedList = new SinglyLinkedList();
 linkedList.push(1);
-linkedList.push(2);
-linkedList.push(3);
-linkedList.push(4);
 
 //console.log(linkedList);
-//console.log(linkedList.push(5));
+//console.log(linkedList.push(4));
 //console.log(linkedList.pop());
 //console.log(linkedList.unshift(0));
 //console.log(linkedList.shift());
 //console.log(linkedList.get(2));
-//console.log(linkedList.set(0, 22));
-console.log(linkedList);
+//console.log(linkedList.set(0, 5));
+//console.log(linkedList.insert(1, 6));
+//console.log(linkedList.remove(1));
+//console.log(linkedList.reverse());
