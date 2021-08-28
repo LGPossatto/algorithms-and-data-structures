@@ -1,8 +1,10 @@
 // Doubly Linked List
 /* 
     Time Complexity:
-    Insertion: Big O(1);
-    Removal: Big O(1);
+    Insertion: Big O(1), not considering the necessery act 
+    of searching (Big O(n));
+    Removal: Big O(1), not considering the necessery act 
+    of searching (Big O(n));
     Searching: Big O(N), technically O(N / 2);
     Access: Big O(N).
 
@@ -173,6 +175,37 @@ class DoublyLinkedList<T> {
     this.length = 0;
   }
 
+  get = (index: number): DoublyNode<T> | null => {
+    if (index < 0 || index >= this.length) return null;
+
+    let selectedNode: DoublyNode<T>;
+
+    if (index <= this.length / 2) {
+      selectedNode = this.head!;
+      for (let i = 1; i <= index; i++) {
+        selectedNode = selectedNode.next!;
+      }
+    } else {
+      selectedNode = this.tail!;
+      for (let i = this.length - 2; i >= index; i--) {
+        selectedNode = selectedNode.prev!;
+      }
+    }
+
+    return selectedNode;
+  };
+
+  set = (index: number, val: T): boolean => {
+    const selectedNode = this.get(index);
+
+    if (!selectedNode) {
+      return false;
+    }
+
+    selectedNode!.val = val;
+    return true;
+  };
+
   push = (val: T): DoublyLinkedList<T> => {
     const newNode = new DoublyNode<T>(val);
 
@@ -238,6 +271,44 @@ class DoublyLinkedList<T> {
     this.length--;
     return removedNode;
   };
+
+  insert = (index: number, val: T): boolean => {
+    if (index < 0 || index > this.length) return false;
+    if (index === 0) return this.unshift(val) ? true : false;
+    if (index === this.length) return this.push(val) ? true : false;
+
+    const newNode = new DoublyNode<T>(val);
+    const prevNode = this.get(index - 1);
+    const nextNode = prevNode!.next;
+
+    newNode.next = nextNode;
+    newNode.prev = prevNode;
+
+    nextNode!.prev = newNode;
+    prevNode!.next = newNode;
+
+    this.length++;
+    return true;
+  };
+
+  remove = (index: number): DoublyNode<T> | null => {
+    if (index < 0 || index > this.length) return null;
+    if (index === 0) return this.shift();
+    if (index === this.length) return this.pop();
+
+    const removedNode = this.get(index);
+    const prevNode = removedNode!.prev;
+    const nextNode = removedNode!.next;
+
+    prevNode!.next = nextNode;
+    nextNode!.prev = prevNode;
+
+    removedNode!.next = null;
+    removedNode!.prev = null;
+
+    this.length--;
+    return removedNode;
+  };
 }
 
 const doublyList = new DoublyLinkedList<number>();
@@ -249,7 +320,7 @@ doublyList.push(3);
 //console.log(doublyList.set(0, 5));
 //console.log(doublyList.push(4));
 //console.log(doublyList.pop());
-console.log(doublyList.unshift(0));
+//console.log(doublyList.unshift(0));
 //console.log(doublyList.shift());
 //console.log(doublyList.insert(1, 6));
 //console.log(doublyList.remove(1));
