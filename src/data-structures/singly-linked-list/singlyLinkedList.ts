@@ -1,10 +1,10 @@
 // Linked List
 /* 
     Time Complexity:
-    Insertion: Big O(1);
-    Removal: Big O(1) or Big O(N) if remove at the end os the list;
-    Searching: Big O(N);
-    Access: Big O(N).
+    - Insertion: Big O(1);
+    - Removal: Big O(1) or Big O(N) if remove at the end os the list;
+    - Searching: Big O(N);
+    - Access: Big O(N).
 
     What is a linked list?
     - A data structure that contains a head, tail and 
@@ -42,7 +42,7 @@
         - If the node is found, set the value of that node to be 
         the value passed to the function and return true.
 
-    Pushing:
+    Push:
         Adding a new node to the end of the Linked List!
 
         Pseudocode:
@@ -56,7 +56,7 @@
         - Increment the length by one;
         - Return the linked list.
 
-    Popping:
+    Pop:
         Removing a node from the end of the Linked List!
 
         Pseudocode:
@@ -70,7 +70,7 @@
         - Decrement the length of the list by 1;
         - Return the value of the node removed.
 
-    Unshifting:
+    Unshift:
         Adding a new node to the beginning of the Linked List!
 
         Pseudocode:
@@ -85,7 +85,7 @@
         - Increment the length of the list by 1;
         - Return the linked list.
 
-    Shifting:
+    Shift:
         Removing a new node from the beginning of the Linked List!
 
         Pseudocode:
@@ -295,7 +295,7 @@ class SinglyLinkedList<T> {
 
     let prevNode = null;
     let currentNode = this.head;
-    let nextNode = null;
+    let nextNode: SinglyNode<T> | null;
 
     while (currentNode) {
       nextNode = currentNode!.next;

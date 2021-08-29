@@ -1,12 +1,12 @@
 // Doubly Linked List
 /* 
     Time Complexity:
-    Insertion: Big O(1), not considering the necessery act 
+    - Insertion: Big O(1), not considering the necessery act 
     of searching (Big O(n));
-    Removal: Big O(1), not considering the necessery act 
+    - Removal: Big O(1), not considering the necessery act 
     of searching (Big O(n));
-    Searching: Big O(N), technically O(N / 2);
-    Access: Big O(N).
+    - Searching: Big O(N), technically O(N / 2);
+    - Access: Big O(N).
 
     Almost identical to Singly Linked Lists, except every 
     node has another pointer, to the previous node!
@@ -42,7 +42,7 @@
             - Return true;
         - Otherwise, return false;
 
-    Pushing:
+    Push:
         Adding a node to the end of the Doubly Linked List!
 
         Pseudocode:
@@ -58,7 +58,7 @@
         - Increment the length;
         - Return the Doubly Linked List.
 
-    Popping:
+    Pop:
         Removing a node from the end of the Doubly Linked List!
 
         Pseudocode:
@@ -70,7 +70,7 @@
         - Decrement the length;
         - Return the value removed.
 
-    Unshifting:
+    Unshift:
         Adding a node to the beginning of the Doubly 
         Linked List!
 
@@ -89,7 +89,7 @@
         - Increment the length;
         - Return the list.
 
-    Shifting:
+    Shift:
         Removing a node from the beginning of the Doubly 
         Linked List!
 
@@ -292,22 +292,41 @@ class DoublyLinkedList<T> {
   };
 
   remove = (index: number): DoublyNode<T> | null => {
-    if (index < 0 || index > this.length) return null;
+    if (index < 0 || index >= this.length) return null;
     if (index === 0) return this.shift();
-    if (index === this.length) return this.pop();
+    if (index === this.length - 1) return this.pop();
 
     const removedNode = this.get(index);
     const prevNode = removedNode!.prev;
     const nextNode = removedNode!.next;
 
-    prevNode!.next = nextNode;
     nextNode!.prev = prevNode;
+    prevNode!.next = nextNode;
 
-    removedNode!.next = null;
     removedNode!.prev = null;
+    removedNode!.next = null;
 
     this.length--;
     return removedNode;
+  };
+
+  reverse = (): DoublyLinkedList<T> => {
+    let selectedNode = this.head;
+    let nextNode: DoublyNode<T> | null;
+
+    this.head = this.tail;
+    this.tail = selectedNode;
+
+    while (selectedNode) {
+      nextNode = selectedNode.next;
+
+      selectedNode.next = selectedNode.prev;
+      selectedNode.prev = nextNode;
+
+      selectedNode = nextNode;
+    }
+
+    return this;
   };
 }
 
