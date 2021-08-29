@@ -10,6 +10,7 @@
 
     Almost identical to Singly Linked Lists, except every 
     node has another pointer, to the previous node!
+    
     METHODS =>
     Get:
         Accessing a node in a Doubly Linked List by its 
@@ -153,12 +154,12 @@
 */
 
 class DoublyNode<T> {
-  public val: T;
+  public value: T;
   public next: DoublyNode<T> | null;
   public prev: DoublyNode<T> | null;
 
-  constructor(val: T) {
-    this.val = val;
+  constructor(value: T) {
+    this.value = value;
     this.next = null;
     this.prev = null;
   }
@@ -195,19 +196,19 @@ class DoublyLinkedList<T> {
     return selectedNode;
   };
 
-  set = (index: number, val: T): boolean => {
+  set = (index: number, value: T): boolean => {
     const selectedNode = this.get(index);
 
     if (!selectedNode) {
       return false;
     }
 
-    selectedNode!.val = val;
+    selectedNode!.value = value;
     return true;
   };
 
-  push = (val: T): DoublyLinkedList<T> => {
-    const newNode = new DoublyNode<T>(val);
+  push = (value: T): DoublyLinkedList<T> => {
+    const newNode = new DoublyNode<T>(value);
 
     if (!this.head) {
       this.head = newNode;
@@ -239,8 +240,8 @@ class DoublyLinkedList<T> {
     return removedNode;
   };
 
-  unshift = (val: T): DoublyLinkedList<T> => {
-    const newNode = new DoublyNode<T>(val);
+  unshift = (value: T): DoublyLinkedList<T> => {
+    const newNode = new DoublyNode<T>(value);
 
     if (!this.head) {
       this.head = newNode;
@@ -272,12 +273,12 @@ class DoublyLinkedList<T> {
     return removedNode;
   };
 
-  insert = (index: number, val: T): boolean => {
+  insert = (index: number, value: T): boolean => {
     if (index < 0 || index > this.length) return false;
-    if (index === 0) return this.unshift(val) ? true : false;
-    if (index === this.length) return this.push(val) ? true : false;
+    if (index === 0) return this.unshift(value) ? true : false;
+    if (index === this.length) return this.push(value) ? true : false;
 
-    const newNode = new DoublyNode<T>(val);
+    const newNode = new DoublyNode<T>(value);
     const prevNode = this.get(index - 1);
     const nextNode = prevNode!.next;
 

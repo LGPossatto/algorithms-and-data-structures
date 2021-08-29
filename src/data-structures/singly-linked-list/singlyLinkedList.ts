@@ -151,11 +151,11 @@
 */
 
 class SinglyNode<T> {
-  public val: T;
+  public value: T;
   public next: SinglyNode<T> | null;
 
-  constructor(val: T) {
-    this.val = val;
+  constructor(value: T) {
+    this.value = value;
     this.next = null;
   }
 }
@@ -182,19 +182,19 @@ class SinglyLinkedList<T> {
     return selectedNode;
   };
 
-  set = (index: number, val: T): boolean => {
+  set = (index: number, value: T): boolean => {
     const selectedNode = this.get(index);
 
     if (!selectedNode) {
       return false;
     }
 
-    selectedNode.val = val;
+    selectedNode.value = value;
     return true;
   };
 
-  push = (val: T): SinglyLinkedList<T> => {
-    const newNode = new SinglyNode<T>(val);
+  push = (value: T): SinglyLinkedList<T> => {
+    const newNode = new SinglyNode<T>(value);
 
     if (!this.head) {
       this.head = newNode;
@@ -231,8 +231,8 @@ class SinglyLinkedList<T> {
     return currentNode;
   };
 
-  unshift = (val: T): SinglyLinkedList<T> => {
-    const newNode = new SinglyNode<T>(val);
+  unshift = (value: T): SinglyLinkedList<T> => {
+    const newNode = new SinglyNode<T>(value);
 
     if (!this.head) {
       this.head = newNode;
@@ -262,12 +262,12 @@ class SinglyLinkedList<T> {
     return removedNode;
   };
 
-  insert = (index: number, val: T): boolean => {
+  insert = (index: number, value: T): boolean => {
     if (index < 0 || index > this.length) return false;
-    if (index === 0) return this.unshift(val) ? true : false;
-    if (index === this.length) return this.push(val) ? true : false;
+    if (index === 0) return this.unshift(value) ? true : false;
+    if (index === this.length) return this.push(value) ? true : false;
 
-    const newNode = new SinglyNode<T>(val);
+    const newNode = new SinglyNode<T>(value);
     const prevNode = this.get(index - 1);
     newNode.next = prevNode!.next;
     prevNode!.next = newNode;

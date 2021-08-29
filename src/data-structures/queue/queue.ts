@@ -11,42 +11,42 @@
     - First in first out.
 
     METHODS =>
-        Enqueue:
-            Adding to the beginning of the Queue!
-    
-            Pseudocode:
-            - This function accepts some value;
-            - Create a new node using that value passed to 
-            the function;
-            - If there are no nodes in the queue, set this 
-            node to be the first and last property of the queue;
-            - Otherwise, set the next property on the current 
-            last to be that node, and then set the last property 
-            of the queue to be that node;
-            - Increment the size of the queue by 1.
-            - Return the size.
+    Enqueue:
+        Adding to the beginning of the Queue!
 
-        Dequeue:
-            Removing from the beginning of the Queue!
+        Pseudocode:
+        - This function accepts some value;
+        - Create a new node using that value passed to 
+        the function;
+        - If there are no nodes in the queue, set this 
+        node to be the first and last property of the queue;
+        - Otherwise, set the next property on the current 
+        last to be that node, and then set the last property 
+        of the queue to be that node;
+        - Increment the size of the queue by 1.
+        - Return the size.
 
-            Pseudocode:
-            - If there is no first property, just return null;
-            - Store the first property in a variable;
-            - See if the first is the same as the last (check if 
-            there is only 1 node). If so, set the first and last 
-            to be null;
-            - If there is more than 1 node, set the first property 
-            to be the next property of first ;
-            - Decrement the size by 1;
-            - Return the value of the node dequeued.
+    Dequeue:
+        Removing from the beginning of the Queue!
+
+        Pseudocode:
+        - If there is no first property, just return null;
+        - Store the first property in a variable;
+        - See if the first is the same as the last (check if 
+        there is only 1 node). If so, set the first and last 
+        to be null;
+        - If there is more than 1 node, set the first property 
+        to be the next property of first ;
+        - Decrement the size by 1;
+        - Return the value of the node dequeued.
 */
 
 class QueueNode<T> {
-  public val: T;
+  public value: T;
   public next: QueueNode<T> | null;
 
-  constructor(val: T) {
-    this.val = val;
+  constructor(value: T) {
+    this.value = value;
     this.next = null;
   }
 }
@@ -62,8 +62,8 @@ export class Queue<T> {
     this.size = 0;
   }
 
-  enqueue = (val: T): number => {
-    const newNode = new QueueNode<T>(val);
+  enqueue = (value: T): number => {
+    const newNode = new QueueNode<T>(value);
 
     if (!this.first) {
       this.first = newNode;
@@ -89,7 +89,7 @@ export class Queue<T> {
     removedNode.next = null;
 
     this.size--;
-    return removedNode.val;
+    return removedNode.value;
   };
 }
 
