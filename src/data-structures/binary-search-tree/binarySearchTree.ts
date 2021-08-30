@@ -110,6 +110,32 @@
         it to the queue.
     - Return the variable that stores the values.
 
+    Depth First Search (PreOrder) - Recursively:
+    - Create a variable to store the values of nodes visited;
+    - Store the root of the BST in a variable called current;
+    - Write a helper function which accepts a node:
+        - Push the value of the node to the variable that stores 
+        the values;
+        - If the node has a left property, call the helper 
+        function with the left property on the node;
+        - If the node has a right property, call the helper 
+        function with the right property on the node.
+    - Invoke the helper function with the current variable;
+    - Return the array of values.
+
+    Depth First Search (PostOrder) - Recursively:
+    - Create a variable to store the values of nodes visited;
+    - Store the root of the BST in a variable called current;
+    - Write a helper function which accepts a node:
+        - If the node has a left property, call the helper 
+        function with the left property on the node;
+        - If the node has a right property, call the helper 
+        function with the right property on the node;
+        - Push the value of the node to the variable that 
+        stores the values;
+    - Invoke the helper function with the current variable.
+    - Return the array of values.
+
     Depth First Search (InOrder) - Recursively:
     - Create a variable to store the values of nodes visited;
     - Store the root of the BST in a variable called current;
@@ -122,22 +148,9 @@
         function with the right property on the node.
     - Invoke the helper function with the current variable;
     - Return the array of values.
-
-    Depth First Search (PreOrder) - Recursively:
-    - Create a variable to store the values of nodes visited;
-    - Store the root of the BST in a variable called current;
-    - Write a helper function which accepts a node:
-        - If the node has a left property, call the helper 
-        function with the left property on the node;
-        - If the node has a right property, call the helper 
-        function with the right property on the node;
-        - Push the value of the node to the variable that 
-        stores the values;
-        - Invoke the helper function with the current variable.
-    - Return the array of values.
-
-
 */
+
+import { Queue } from "../queue/queue";
 
 class BinaryNode {
   public value: number;
@@ -248,21 +261,72 @@ class BinarySearchTree {
     // if (!found) return null;
     // return currentNode;
   };
+
+  breadthFirstSearch = (): number[] => {
+    if (!this.root) return [];
+
+    const visitedArr: number[] = [];
+    let removedNode: BinaryNode;
+    const queue = new Queue<BinaryNode>();
+    queue.enqueue(this.root);
+
+    while (queue.getSize()) {
+      removedNode = queue.dequeue()!;
+      visitedArr.push(removedNode!.value);
+
+      if (removedNode?.left) {
+        queue.enqueue(removedNode!.left);
+      }
+      if (removedNode?.right) {
+        queue.enqueue(removedNode!.right);
+      }
+    }
+
+    return visitedArr;
+  };
+
+  depthFirstSearch = (): number[] => {
+    if (!this.root) return [];
+
+    const visitedArr: number[] = [];
+
+    const traverse = (node: BinaryNode): void => {
+      // PreOrder
+      // visitedArr.push(node.value);
+
+      if (node.left) {
+        traverse(node.left);
+      }
+
+      // InOrder
+      visitedArr.push(node.value);
+
+      if (node.right) {
+        traverse(node.right);
+      }
+
+      // PostOrder
+      // visitedArr.push(node.value);
+    };
+
+    traverse(this.root);
+    return visitedArr;
+  };
 }
 
 const newBST = new BinarySearchTree();
 newBST.insert(10);
-newBST.insert(11);
-newBST.insert(9);
-newBST.insert(13);
-newBST.insert(12);
-newBST.insert(7);
+newBST.insert(6);
+newBST.insert(15);
+newBST.insert(3);
 newBST.insert(8);
+newBST.insert(20);
 
 //console.log(newBST.search(10));
 //console.log(newBST.search(13));
 //console.log(newBST.search(7));
 //console.log(newBST.search(100));
 //console.log(newBST.search(0));
-
-console.log(newBST);
+//console.log(newBST.breadthFirstSearch());
+console.log(newBST.depthFirstSearch());
+//console.log(newBST);

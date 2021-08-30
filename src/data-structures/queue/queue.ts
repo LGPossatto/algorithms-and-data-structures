@@ -62,6 +62,10 @@ export class Queue<T> {
     this.size = 0;
   }
 
+  getSize = (): number => {
+    return this.size;
+  };
+
   enqueue = (value: T): number => {
     const newNode = new QueueNode<T>(value);
 
