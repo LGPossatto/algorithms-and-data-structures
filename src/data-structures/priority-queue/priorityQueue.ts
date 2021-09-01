@@ -44,3 +44,102 @@
     - Once you've run out of items to swap, you have a sorted 
     array!
 */
+
+class PriorityNode<T> {
+  public value: T;
+  public priority: number;
+
+  constructor(value: T, priority: number) {
+    this.value = value;
+    this.priority = priority;
+  }
+}
+
+class PriotiryQueue<T> {
+  private values: PriorityNode<T>[];
+
+  constructor() {
+    this.values = [];
+  }
+
+  enqueue = (value: T, priority: number): PriorityNode<T>[] => {
+    const newNode = new PriorityNode<T>(value, priority);
+
+    let childIdx = this.values.length;
+    let parentIdx = Math.floor((childIdx - 1) / 2);
+    let temp: PriorityNode<T>;
+
+    this.values.push(newNode);
+
+    // bubble up
+    while (parentIdx >= 0 && priority < this.values[parentIdx].priority) {
+      temp = this.values[childIdx];
+      this.values[childIdx] = this.values[parentIdx];
+      this.values[parentIdx] = temp;
+
+      childIdx = parentIdx;
+      parentIdx = Math.floor((childIdx - 1) / 2);
+    }
+
+    return this.values;
+  };
+
+  dequeue = (): PriorityNode<T> | null => {
+    if (this.values.length <= 0) return null;
+    if (this.values.length === 1) return this.values.pop()!;
+
+    const minValue = this.values[0];
+    let idx = 0;
+    let leftIdx = 1;
+    let rightIdx = 2;
+    let minIdx: number;
+    let temp: PriorityNode<T>;
+
+    this.values[idx] = this.values.pop()!;
+
+    // sink down
+    while (this.values[leftIdx]) {
+      if (this.values[rightIdx]) {
+        minIdx =
+          this.values[leftIdx].priority <= this.values[rightIdx].priority
+            ? leftIdx
+            : rightIdx;
+      } else {
+        minIdx = leftIdx;
+      }
+
+      if (this.values[idx].priority > this.values[minIdx].priority) {
+        temp = this.values[idx];
+        this.values[idx] = this.values[minIdx];
+        this.values[minIdx] = temp;
+
+        idx = minIdx;
+        leftIdx = 2 * idx + 1;
+        rightIdx = 2 * idx + 2;
+      } else {
+        break;
+      }
+    }
+
+    return minValue;
+  };
+}
+
+const newPQ = new PriotiryQueue<number>();
+newPQ.enqueue(41, 5);
+newPQ.enqueue(39, 0);
+newPQ.enqueue(33, 5);
+newPQ.enqueue(18, 3);
+newPQ.enqueue(27, 5);
+newPQ.enqueue(12, 2);
+newPQ.enqueue(55, 1);
+
+console.log(newPQ.dequeue());
+//console.log(newPQ.dequeue());
+//console.log(newPQ.dequeue());
+//console.log(newPQ.dequeue());
+//console.log(newPQ.dequeue());
+//console.log(newPQ.dequeue());
+//console.log(newPQ.dequeue());
+//console.log(newPQ.dequeue());
+console.log(newPQ);
