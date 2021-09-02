@@ -3,7 +3,7 @@
     Time Complexity:
     Insertion: Big O(1);
     Removing: Big O(1);
-    Searching: (1).
+    Access: Big O(1).
 
     What is a hash table?
     - Hash tables are used to store key-value pairs;
@@ -64,22 +64,137 @@
     array of values in the table.
 */
 
-class HashNode<T> {
-  public value: T;
-
-  constructor(value: T) {
-    this.value = value;
-  }
-}
+type hashArray<T> = [key: string, value: T];
 
 class HashTable<T> {
-  private values: PriorityNode<T>[];
+  private keyMap: hashArray<T>[][];
 
-  constructor() {
-    this.values = [];
+  constructor(size: number = 50) {
+    this.keyMap = new Array(size);
   }
+
+  private hashKey = (key: string) => {
+    let total = 0;
+    let WEIRD_PRIME = 31;
+    for (let i = 0; i < Math.min(key.length, 100); i++) {
+      let char = key[i];
+      let value = char.charCodeAt(0) - 96;
+      total = (total * WEIRD_PRIME + value) % this.keyMap.length;
+    }
+    return total;
+  };
+
+  set = (key: string, value: T): number => {
+    const hashIdx = this.hashKey(key);
+
+    if (this.keyMap[hashIdx]) {
+      const existIdx = this.keyMap[hashIdx].findIndex(
+        (array) => array[0] === key
+      );
+
+      if (existIdx >= 0) {
+        this.keyMap[hashIdx][existIdx][1] = value;
+      } else {
+        this.keyMap[hashIdx].push([key, value]);
+      }
+    } else {
+      this.keyMap[hashIdx] = [[key, value]];
+    }
+
+    return hashIdx;
+  };
+
+  get = (key: string): T | undefined => {
+    const hashIdx = this.hashKey(key);
+
+    if (this.keyMap[hashIdx]) {
+      const value = this.keyMap[hashIdx].find((array) => array[0] === key);
+      if (value) return value[1];
+    }
+    return undefined;
+  };
+
+  getKeys = (): string[] => {
+    const keysArr: string[] = [];
+
+    // recursive
+    const recursiveScan = (arr: any[]) => {
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] && arr[i].constructor === Array) {
+          recursiveScan(arr[i]);
+        } else if (arr[0]) {
+          keysArr.push(arr[0]);
+          break;
+        }
+      }
+    };
+    recursiveScan(this.keyMap);
+
+    // iterative
+    // for (let i = 0; i < this.keyMap.length; i++) {
+    //   if (this.keyMap[i]) {
+    //     for (let j = 0; j < this.keyMap[i].length; j++) {
+    //       if (!keysArr.includes(this.keyMap[i][j][0])) {
+    //         keysArr.push(this.keyMap[i][j][0]);
+    //       }
+    //     }
+    //   }
+    // }
+
+    return keysArr;
+  };
+
+  getValues = (): T[] => {
+    const valuesArr: T[] = [];
+
+    // recursive
+    const recursiveScan = (arr: any[]) => {
+      for (let i = 0; i < arr.length; i++) {
+        if (arr[i] && arr[i].constructor === Array) {
+          recursiveScan(arr[i]);
+        } else if (arr[1]) {
+          valuesArr.push(arr[1]);
+          break;
+        }
+      }
+    };
+    recursiveScan(this.keyMap);
+
+    // iterative
+    // for (let i = 0; i < this.keyMap.length; i++) {
+    //   if (this.keyMap[i]) {
+    //     for (let j = 0; j < this.keyMap[i].length; j++) {
+    //       if (!valuesArr.includes(this.keyMap[i][j][1])) {
+    //         valuesArr.push(this.keyMap[i][j][1]);
+    //       }
+    //     }
+    //   }
+    // }
+
+    return valuesArr;
+  };
 }
 
-const newHT = new HashTable();
+const newHT = new HashTable<string>(10);
+newHT.set("black", "#000");
+newHT.set("maroon", "#800000");
+newHT.set("yellow", "#FFFF00");
+newHT.set("olive", "#808000");
+newHT.set("salmon", "#FA8072");
+newHT.set("lightcoral", "#F08080");
+newHT.set("mediumvioletred", "#C71585");
+newHT.set("plum", "#DDA0DD");
+newHT.set("black", "#111");
 
-console.log(newHT);
+//console.log(newHT.get("black"));
+//console.log(newHT.get("maroon"));
+//console.log(newHT.get("yellow"));
+//console.log(newHT.get("olive"));
+//console.log(newHT.get("salmon"));
+//console.log(newHT.get("lightcoral"));
+//console.log(newHT.get("mediumvioletred"));
+//console.log(newHT.get("plum"));
+//console.log(newHT.get("pluma"));
+
+console.log(newHT.getKeys());
+console.log(newHT.getValues());
