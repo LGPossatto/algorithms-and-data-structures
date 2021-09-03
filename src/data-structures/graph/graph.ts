@@ -164,6 +164,8 @@
     - return the array of results.
 */
 
+import { Stack } from "../stack/stack";
+
 class Graph {
   private adjacencyList: { [key: string]: string[] };
 
@@ -198,6 +200,12 @@ class Graph {
       for (let i = this.adjacencyList[vertex].length - 1; i >= 0; i--) {
         this.removeEdge(vertex, this.adjacencyList[vertex][i]);
       }
+
+      // other way
+      // while (this.adjacencyList[vertex].length) {
+      //   const adjacentVertex = this.adjacencyList[vertex].pop()!;
+      //   this.removeEdge(vertex, adjacentVertex);
+      // }
       delete this.adjacencyList[vertex];
       return true;
     }
@@ -217,36 +225,64 @@ class Graph {
     }
     return false;
   };
+
+  depthFirstSearch = (vertex: string): string[] => {
+    const searchList: string[] = [];
+    const visitedNodes: { [key: string]: boolean } = {};
+
+    // recursive
+    // const recursiveTraverse = (vertex: string): void => {
+    //   if (this.adjacencyList[vertex].length <= 0) return;
+    //   visitedNodes[vertex] = true;
+    //   searchList.push(vertex);
+    //
+    //   for (let node of this.adjacencyList[vertex]) {
+    //     if (!visitedNodes[node]) {
+    //       recursiveTraverse(node);
+    //     }
+    //   }
+    // };
+    // recursiveTraverse(vertex);
+
+    // iterative
+    const vertexStack = new Stack<string>();
+    let poppedVertex: string;
+
+    vertexStack.push(vertex);
+    visitedNodes[vertex] = true;
+
+    while (vertexStack.getSize()) {
+      poppedVertex = vertexStack.pop()!;
+      searchList.push(poppedVertex);
+
+      for (let node of this.adjacencyList[poppedVertex]) {
+        if (!visitedNodes[node]) {
+          visitedNodes[node] = true;
+          vertexStack.push(node);
+        }
+      }
+    }
+
+    return searchList;
+  };
 }
 
 const newGraph = new Graph();
 
-newGraph.addVertex("tokyo");
-newGraph.addVertex("dallas");
-newGraph.addVertex("sao_paulo");
-newGraph.addVertex("paris");
-newGraph.addVertex("sao_francisco");
-newGraph.addVertex("berlim");
-newGraph.addVertex("roma");
-newGraph.addVertex("foz_do_iguacu");
+newGraph.addVertex("A");
+newGraph.addVertex("B");
+newGraph.addVertex("C");
+newGraph.addVertex("D");
+newGraph.addVertex("E");
+newGraph.addVertex("F");
 
-//console.log(newGraph);
+newGraph.addEdge("A", "B");
+newGraph.addEdge("A", "C");
+newGraph.addEdge("B", "D");
+newGraph.addEdge("C", "E");
+newGraph.addEdge("D", "E");
+newGraph.addEdge("D", "F");
+newGraph.addEdge("E", "F");
 
-newGraph.addEdge("tokyo", "sao_paulo");
-newGraph.addEdge("dallas", "tokyo");
-newGraph.addEdge("sao_paulo", "Paris");
-newGraph.addEdge("sao_paulo", "foz_do_iguacu");
-newGraph.addEdge("berlim", "Paris");
-newGraph.addEdge("roma", "berlim");
-newGraph.addEdge("tokyo", "Paris");
-newGraph.addEdge("tokyo", "roma");
-newGraph.addEdge("berlim", "dallas");
-newGraph.addEdge("paris", "roma");
-newGraph.addEdge("sao_francisco", "foz_do_iguacu");
-
-//console.log(newGraph);
-
-//newGraph.removeEdge("sao_paulo", "tokyo");
-//newGraph.removeVertex("tokyo");
-
+console.log(newGraph.depthFirstSearch("A"));
 console.log(newGraph);

@@ -71,6 +71,10 @@ export class Stack<T> {
     this.size = 0;
   }
 
+  getSize = (): number => {
+    return this.size;
+  };
+
   push = (value: T): number => {
     const newNode = new StackNode<T>(value);
 
