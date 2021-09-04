@@ -150,21 +150,10 @@
     mark it as visited and enqueue that vertex;
     - Once you have finished looping, return the array of visited 
     nodes.
-    
-    - The function should accept a starting node;
-    - Create an object to store visited nodes and an array to 
-    store the result;
-    - Create a helper function which accepts a vertex;
-    - The helper function should place the vertex it accepts into 
-    the visited object and push that vertex into the results;
-    - Loop over all of the values in the adjacencyList for 
-    that vertex;
-    - If any of those values have not been visited, invoke the 
-    helper function with that vertex;
-    - return the array of results.
 */
 
 import { Stack } from "../stack/stack";
+import { Queue } from "../queue/queue";
 
 class Graph {
   private adjacencyList: { [key: string]: string[] };
@@ -172,6 +161,10 @@ class Graph {
   constructor() {
     this.adjacencyList = {};
   }
+
+  getAdjList = (): {} => {
+    return this.adjacencyList;
+  };
 
   addVertex = (vertex: string): boolean => {
     if (!this.adjacencyList[vertex]) {
@@ -265,6 +258,30 @@ class Graph {
 
     return searchList;
   };
+
+  breadthFirstSearch = (vertex: string): string[] => {
+    const searchList: string[] = [];
+    const visitedNodes: { [key: string]: boolean } = {};
+    const vertexQueue = new Queue<string>();
+    let dequeuedNode;
+
+    visitedNodes[vertex] = true;
+    vertexQueue.enqueue(vertex);
+
+    while (vertexQueue.getSize()) {
+      dequeuedNode = vertexQueue.dequeue()!;
+      searchList.push(dequeuedNode);
+
+      for (let node of this.adjacencyList[dequeuedNode]) {
+        if (!visitedNodes[node]) {
+          visitedNodes[node] = true;
+          vertexQueue.enqueue(node);
+        }
+      }
+    }
+
+    return searchList;
+  };
 }
 
 const newGraph = new Graph();
@@ -285,4 +302,5 @@ newGraph.addEdge("D", "F");
 newGraph.addEdge("E", "F");
 
 console.log(newGraph.depthFirstSearch("A"));
-console.log(newGraph);
+console.log(newGraph.breadthFirstSearch("A"));
+console.log(newGraph.getAdjList());
