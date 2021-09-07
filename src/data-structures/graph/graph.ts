@@ -12,7 +12,7 @@
     /////////////////////////////////////////////////////////
     * |V| - number of vertices / |E| - number of edges.
 
-    What is a hash table?
+    What is a graph?
     - A graph data structure consists of a finite (and 
     possibly mutable) set of vertices or nodes or points, 
     together with a set of unordered pairs of these 

@@ -1,11 +1,9 @@
 // Dijkstra's Algorithm
 /* 
-
     What is it?
     - One of the most famous and widely used algorithms around!
     - Finds the shortest path between two vertices on a graph;
     - "What's the fastest way to get from point A to point B?".
-
 
     The approach:
     - Every time we look to visit a new node, we pick the 
@@ -50,20 +48,73 @@
                 from the start node.
 */
 
-class PriorityQueue<T> {
-  private values: { val: T; priority: number }[];
+import { WeightedGraph } from "../../data-structures/graph/weightedGraph";
+import { PriotiryQueue } from "../../data-structures/priority-queue/priorityQueue";
 
+class DAGraph extends WeightedGraph {
   constructor() {
-    this.values = [];
+    super();
   }
-  enqueue(val: T, priority: number) {
-    this.values.push({ val, priority });
-    this.sort();
-  }
-  dequeue() {
-    return this.values.shift();
-  }
-  sort() {
-    this.values.sort((a, b) => a.priority - b.priority);
-  }
+
+  shortestPath = (startVertex: string, endVertex: string): string[] => {
+    const pathArr: string[] = [];
+    const distances: { [key: string]: number } = {};
+    const previous: { [key: string]: string | null } = {};
+    const pQueue = new PriotiryQueue<string>();
+
+    for (const key in this.adjacencyList) {
+      if (key === startVertex) {
+        distances[key] = 0;
+        pQueue.enqueue(key, 0);
+      } else {
+        distances[key] = Infinity;
+        pQueue.enqueue(key, Infinity);
+      }
+
+      previous[key] = null;
+    }
+
+    while (pQueue.getValues().length) {
+      const currentVertex = pQueue.dequeue()!.value;
+
+      if (currentVertex === endVertex) {
+        let smallestPath = currentVertex;
+        while (smallestPath) {
+          pathArr.push(smallestPath);
+          smallestPath = previous[smallestPath]!;
+        }
+        break;
+      }
+
+      this.adjacencyList[currentVertex].forEach((neighbor) => {
+        let totalWeight = neighbor.weight + distances[currentVertex];
+
+        if (totalWeight < distances[neighbor.node]) {
+          distances[neighbor.node] = totalWeight;
+          previous[neighbor.node] = currentVertex;
+          pQueue.enqueue(neighbor.node, totalWeight);
+        }
+      });
+    }
+
+    return pathArr.reverse();
+  };
 }
+
+const newGraph = new DAGraph();
+newGraph.addVertex("A");
+newGraph.addVertex("B");
+newGraph.addVertex("C");
+newGraph.addVertex("D");
+newGraph.addVertex("E");
+newGraph.addVertex("F");
+newGraph.addEdge("A", "B", 4);
+newGraph.addEdge("A", "C", 2);
+newGraph.addEdge("B", "E", 3);
+newGraph.addEdge("C", "D", 2);
+newGraph.addEdge("C", "F", 4);
+newGraph.addEdge("D", "E", 3);
+newGraph.addEdge("D", "F", 1);
+newGraph.addEdge("E", "F", 1);
+
+console.log(newGraph.shortestPath("A", "E"));

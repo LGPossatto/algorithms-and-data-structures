@@ -55,12 +55,16 @@ class PriorityNode<T> {
   }
 }
 
-class PriotiryQueue<T> {
+export class PriotiryQueue<T> {
   private values: PriorityNode<T>[];
 
   constructor() {
     this.values = [];
   }
+
+  getValues = (): PriorityNode<T>[] => {
+    return this.values;
+  };
 
   enqueue = (value: T, priority: number): PriorityNode<T>[] => {
     const newNode = new PriorityNode<T>(value, priority);
@@ -125,16 +129,15 @@ class PriotiryQueue<T> {
   };
 }
 
-const newPQ = new PriotiryQueue<number>();
-newPQ.enqueue(41, 5);
-newPQ.enqueue(39, 0);
-newPQ.enqueue(33, 5);
-newPQ.enqueue(18, 3);
-newPQ.enqueue(27, 5);
-newPQ.enqueue(12, 2);
-newPQ.enqueue(55, 1);
+//const newPQ = new PriotiryQueue<number>();
+//newPQ.enqueue(41, 5);
+//newPQ.enqueue(39, 0);
+//newPQ.enqueue(33, 5);
+//newPQ.enqueue(18, 3);
+//newPQ.enqueue(27, 5);
+//newPQ.enqueue(12, 2);
+//newPQ.enqueue(55, 1);
 
-console.log(newPQ.dequeue());
 //console.log(newPQ.dequeue());
 //console.log(newPQ.dequeue());
 //console.log(newPQ.dequeue());
@@ -142,4 +145,5 @@ console.log(newPQ.dequeue());
 //console.log(newPQ.dequeue());
 //console.log(newPQ.dequeue());
 //console.log(newPQ.dequeue());
-console.log(newPQ);
+//console.log(newPQ.dequeue());
+//console.log(newPQ);
