@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "w": "tsc -w",
-    "start": "nodemon ./dist/search-algorithms/dijkstras-algorithm/dijkstrasAlgorithm.js"
+    "start": "nodemon ./dist/problem-solving/divide-and-conquer/ex-1.js"
   },
   "keywords": [],
   "author": "",
