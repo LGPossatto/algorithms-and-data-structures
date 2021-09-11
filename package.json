@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "w": "tsc -w",
-    "start": "nodemon ./dist/problem-solving/divide-and-conquer/ex-1.js"
+    "start": "nodemon ./dist/problem-solving/divide-and-conquer/ex-3.js"
   },
   "keywords": [],
   "author": "",
