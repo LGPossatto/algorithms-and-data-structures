@@ -61,12 +61,6 @@
 
 // [3,2,1,4,5,7,6,8]
 
-const swap = (arr: number[], index1: number, index2: number): void => {
-  const temp = arr[index1];
-  arr[index1] = arr[index2];
-  arr[index2] = temp;
-};
-
 export const pivotHelper = (
   arr: number[],
   start = 0,
@@ -80,11 +74,11 @@ export const pivotHelper = (
     if (arr[start] > arr[i]) {
       //// increase swapIdx and swap it's position
       swapIdx++;
-      swap(arr, i, swapIdx);
+      [arr[swapIdx], arr[i]] = [arr[i], arr[swapIdx]];
     }
   }
   // put pivot in it's position
-  swap(arr, start, swapIdx);
+  [arr[swapIdx], arr[start]] = [arr[start], arr[swapIdx]];
 
   //console.log(arr);
   return swapIdx;
