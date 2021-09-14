@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "w": "tsc -w",
-    "start": "nodemon ./dist/sort-algorithms/radix-sort/ex-4.js"
+    "start": "nodemon ./dist/problem-solving/dynamic-programming/ex-1.js"
   },
   "keywords": [],
   "author": "",
