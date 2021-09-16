@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "w": "tsc -w",
-    "start": "nodemon ./dist/problem-solving/frequency-counter/ex-4.js"
+    "start": "nodemon ./dist/data-structures/binary-search-tree/ex-1.js"
   },
   "keywords": [],
   "author": "",
