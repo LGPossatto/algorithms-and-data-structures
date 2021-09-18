@@ -55,7 +55,7 @@ class PriorityNode<T> {
   }
 }
 
-export class PriotiryQueue<T> {
+export class PriorityQueue<T> {
   private values: PriorityNode<T>[];
 
   constructor() {

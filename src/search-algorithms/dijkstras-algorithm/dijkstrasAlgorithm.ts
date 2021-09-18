@@ -49,7 +49,7 @@
 */
 
 import { WeightedGraph } from "../../data-structures/graph/weightedGraph";
-import { PriotiryQueue } from "../../data-structures/priority-queue/priorityQueue";
+import { PriorityQueue } from "../../data-structures/priority-queue/priorityQueue";
 
 class DAGraph extends WeightedGraph {
   constructor() {
@@ -60,7 +60,7 @@ class DAGraph extends WeightedGraph {
     const pathArr: string[] = [];
     const distances: { [key: string]: number } = {};
     const previous: { [key: string]: string | null } = {};
-    const pQueue = new PriotiryQueue<string>();
+    const pQueue = new PriorityQueue<string>();
 
     for (const key in this.adjacencyList) {
       if (key === startVertex) {
