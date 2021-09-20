@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "w": "tsc -w",
-    "start": "nodemon ./dist/data-structures/graph/ex-1.js"
+    "start": "nodemon ./dist/data-structures/trie/ex-1.js"
   },
   "keywords": [],
   "author": "",
